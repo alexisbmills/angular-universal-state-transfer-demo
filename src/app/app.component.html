@@ -1,0 +1,7 @@
+<h1>Angular Universal State Transfer Demo</h1>
+
+<div *ngIf="users">
+  <div *ngFor="let user of users | async">
+    <span>{{user.firstName}}</span>
+  </div>
+</div>
