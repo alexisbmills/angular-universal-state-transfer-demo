@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, PLATFORM_ID, Inject, APP_ID } from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,8 +21,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   providers: [
     {
       provide: USER_SERVICE,
-      useFactory: (http: HttpClient, platformId: Object, appId: string) => new UserApiService(http, platformId, appId),
-      deps: [HttpClient, [new Inject(PLATFORM_ID)], [new Inject(APP_ID)]]
+      useFactory: (http: HttpClient) => new UserApiService(http),
+      deps: [HttpClient]
     }
   ],
   bootstrap: [AppComponent]
