@@ -1,0 +1,6 @@
+<p><a [routerLink]="['/']">Back</a></p>
+<hr>
+<div *ngIf="user | async as userDetails">
+  <p>Name: {{userDetails.firstName}} {{userDetails.lastName}}</p>
+  <p>Email: {{userDetails.email}}</p>
+</div>

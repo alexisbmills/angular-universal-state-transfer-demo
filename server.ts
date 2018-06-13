@@ -7,7 +7,7 @@ import { enableProdMode } from '@angular/core';
 import * as express from 'express';
 import { join } from 'path';
 import { ngExpressEngine } from '@nguniversal/express-engine';
-import { users } from './server/users';
+import { user, users } from './server/users';
 
 const PORT = process.env.PORT || 4000;
 const DIST_FOLDER = join(process.cwd(), 'dist');
@@ -38,6 +38,7 @@ app.set('views', join(DIST_FOLDER, 'browser'));
 
 // TODO: implement data requests securely
 app.get('/api/users', users);
+app.get('/api/users/:id', user);
 
 app.get('/api/*', (req, res) => {
   res.status(404).send('data requests are not supported');

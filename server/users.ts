@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { User } from '../src/app/services/user';
+import { User } from '../src/app/module/users/services/user';
 
 const USERS_FIXTURES: User[] = [
   {
@@ -42,7 +42,7 @@ const USERS_FIXTURES: User[] = [
 
 export function users(req: Request, res: Response) {
   setTimeout(() => {
-    console.log('users endpoint reached');
+    console.log('user endpoint reached');
     if (req.xhr) {
       console.log('req was xhr');
     }
@@ -52,3 +52,21 @@ export function users(req: Request, res: Response) {
   }, 2000);
 }
 
+export function user(req: Request, res: Response) {
+  setTimeout(() => {
+    console.log('user endpoint reached');
+    if (req.xhr) {
+      console.log('req was xhr');
+    }
+    const userIndex: number = USERS_FIXTURES.findIndex((userItem: User) => userItem.id === req.params.id);
+    if (userIndex < 0 ) {
+      res.status(404)
+        .header('Content-Type', 'text/javascript')
+        .send(JSON.stringify({error: 'user not found'}));
+    }
+    res
+      .header('Content-Type', 'text/javascript')
+      .write(JSON.stringify(USERS_FIXTURES[userIndex]));
+    res.end();
+  }, 2000);
+}

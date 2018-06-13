@@ -15,4 +15,9 @@ export class UserApiService implements UserAccess {
     return this.http.get('http://127.0.0.1:4000/api/users') as Observable<User[]>;
   }
 
+  user(id: string): Observable<User> {
+    console.log(`fetching user ${id}`);
+    return this.http.get<User>(`http://127.0.0.1:4000/api/users/${id}`) as Observable<User>;
+  }
+
 }

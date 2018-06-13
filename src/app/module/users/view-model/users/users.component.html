@@ -1,0 +1,5 @@
+<div *ngIf="users">
+  <div *ngFor="let user of users | async">
+    <span>{{user.firstName}} - <a [routerLink]="['/', user.id]">View</a></span>
+  </div>
+</div>

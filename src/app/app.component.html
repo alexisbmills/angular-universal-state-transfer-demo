@@ -1,7 +1,5 @@
-<h1>Angular Universal State Transfer Demo</h1>
-
-<div *ngIf="users">
-  <div *ngFor="let user of users | async">
-    <span>{{user.firstName}}</span>
-  </div>
-</div>
+<h1>Angular Universal Demo</h1>
+<p>
+  <a [routerLink]="['/']">Users</a> | <a [routerLink]="['/', 'messages']">Messages</a>
+</p>
+<router-outlet></router-outlet>
