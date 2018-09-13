@@ -1,10 +1,7 @@
 import { User } from './user';
-import { Observable } from 'rxjs/Observable';
-import { InjectionToken } from '@angular/core';
+import { Observable } from 'rxjs';
 
 export interface UserAccess {
   users(): Observable<User[]>;
-  user(id: string);
+  user(id: string): Observable<User>;
 }
-
-export const USER_SERVICE = new InjectionToken<UserAccess>('USER_SERVICE');

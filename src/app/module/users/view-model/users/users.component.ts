@@ -1,12 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { USER_SERVICE, UserAccess } from '../../services/user-access';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { User } from '../../services/user';
+import { UserRepositoryService } from '../../services/user-repository.service';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersComponent implements OnInit {
 
@@ -15,10 +16,10 @@ export class UsersComponent implements OnInit {
     return this._users;
   }
 
-  constructor(@Inject(USER_SERVICE) private userService: UserAccess) {
+  constructor(private userRepository: UserRepositoryService) {
   }
 
   ngOnInit(): void {
-    this._users = this.userService.users();
+    this._users = this.userRepository.users();
   }
 }
