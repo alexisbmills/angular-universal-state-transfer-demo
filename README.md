@@ -1,27 +1,24 @@
-# AngularUst
+# Angular Universal State Transfer
+A demo of server to browser state transfer (hydration), using Angular 6.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
+```
+$ yarn install
+$ yarn build:ssr
+$ yarn serve:ssr
+```
 
-## Development server
+Navigate to `http://localhost:4000`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+A mock API is implemented for the display of users' details.
 
-## Code scaffolding
+State Transfer is implemented for the following:
+1. API loaded data, users list/detail views (`src/app/module/users/services/user-repository.service.ts`)
+2. Configuration
+    1. Browser (`src/app/module/core/service/browser-config.service.ts`)
+    2. Server (`src/app/module/core/service/server-config.service.ts`)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This repository also contains some concepts outside of state transfer I  required for a personal proof of concept, including:
+- Lazy-loaded modules
+- Dynamic content resolution
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Reference: https://blog.angularindepth.com/using-transferstate-api-in-an-angular-5-universal-app-130f3ada9e5b

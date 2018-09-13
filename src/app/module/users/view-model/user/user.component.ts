@@ -1,14 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { USER_SERVICE, UserAccess } from '../../services/user-access';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { User } from '../../services/user';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserComponent implements OnInit {
 
@@ -17,12 +16,10 @@ export class UserComponent implements OnInit {
     return this._user;
   }
 
-  constructor(private route: ActivatedRoute,
-              @Inject(USER_SERVICE) private userService: UserAccess) {
+  constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    console.log(`UserComponent ${this.route.snapshot.data['user']}`);
     this._user = new BehaviorSubject<User>(this.route.snapshot.data['user']);
   }
 }

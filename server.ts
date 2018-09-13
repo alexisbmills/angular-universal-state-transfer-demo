@@ -7,7 +7,7 @@ import { enableProdMode } from '@angular/core';
 import * as express from 'express';
 import { join } from 'path';
 import { ngExpressEngine } from '@nguniversal/express-engine';
-import { user, users } from './server/users';
+import { user, users } from './server/api/users';
 
 const PORT = process.env.PORT || 4000;
 const DIST_FOLDER = join(process.cwd(), 'dist');
@@ -21,7 +21,7 @@ enableProdMode();
 const app = express();
 
 // * NOTE :: leave this as require() since this file is  built Dynamically from webpack
-const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/server/main.bundle');
+const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/server/main');
 
 const { provideModuleMap } = require('@nguniversal/module-map-ngfactory-loader');
 
@@ -36,7 +36,6 @@ app.engine('html', ngExpressEngine({
 app.set('view engine', 'html');
 app.set('views', join(DIST_FOLDER, 'browser'));
 
-// TODO: implement data requests securely
 app.get('/api/users', users);
 app.get('/api/users/:id', user);
 
@@ -55,11 +54,11 @@ app.get('*', (req, res) => {
     providers: []
   });
 });
-//
-// app.use((err, req, res, next) => {
-//   console.error(err.stack);
-//   next(err);
-// });
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  next(err);
+});
 
 // Start up the Node server
 app.listen(PORT, () => {

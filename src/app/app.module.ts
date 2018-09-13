@@ -1,9 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CoreModule } from './module/core/core.module';
 
 
 @NgModule({
@@ -11,10 +12,11 @@ import { AppComponent } from './app.component';
     AppComponent,
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
     BrowserModule.withServerTransition({ appId: 'my-app' }),
+    BrowserTransferStateModule,
     HttpClientModule,
+    CoreModule.forRoot(),
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { User } from '../src/app/module/users/services/user';
+import { User } from '../../src/app/module/users/services/user';
 
 const USERS_FIXTURES: User[] = [
   {
@@ -46,7 +46,7 @@ export function users(req: Request, res: Response) {
     if (req.xhr) {
       console.log('req was xhr');
     }
-    res.header('Content-Type', 'text/javascript');
+    res.header('Content-Type', 'application/json');
     res.write(JSON.stringify(USERS_FIXTURES));
     res.end();
   }, 2000);
@@ -61,11 +61,11 @@ export function user(req: Request, res: Response) {
     const userIndex: number = USERS_FIXTURES.findIndex((userItem: User) => userItem.id === req.params.id);
     if (userIndex < 0 ) {
       res.status(404)
-        .header('Content-Type', 'text/javascript')
+        .header('Content-Type', 'application/json')
         .send(JSON.stringify({error: 'user not found'}));
     }
     res
-      .header('Content-Type', 'text/javascript')
+      .header('Content-Type', 'application/json')
       .write(JSON.stringify(USERS_FIXTURES[userIndex]));
     res.end();
   }, 2000);
