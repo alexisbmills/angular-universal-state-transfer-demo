@@ -11,6 +11,12 @@ export class ServerConfigService implements ConfigAccess {
   apiUrl = 'http://localhost:4000/api';
 
   constructor(private transferState: TransferState) {
+  }
+
+
+  init(): Promise<string> {
+    console.log(`setting API URL ${this.apiUrl}`);
     this.transferState.set<string>(API_URL_STATE_KEY, this.apiUrl);
+    return Promise.resolve(this.apiUrl);
   }
 }

@@ -1,5 +1,9 @@
-<h1>Angular Universal Demo</h1>
-<p>
-  <a [routerLink]="['/']">Users</a> | <a [routerLink]="['/', 'messages']">Messages</a>
-</p>
-<router-outlet></router-outlet>
+<div class="container">
+  <header>
+    <h1>Angular Universal Demo</h1>
+    <nav>
+      <a title="users" [routerLink]="['/']">Users</a> <a title="messages" [routerLink]="['/', 'messages']">Messages</a>
+    </nav>
+  </header>
+  <router-outlet></router-outlet>
+</div>

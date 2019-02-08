@@ -1,5 +1,8 @@
-<div *ngIf="users">
-  <div *ngFor="let user of users | async">
+<div *ngIf="users" class="list">
+  <div
+      *ngFor="let user of (users | async); let userIndex = index"
+      class="user"
+      [ngClass]="rowClasses(userIndex)">
     <span>{{user.firstName}} - <a [routerLink]="['/', user.id]">View</a></span>
   </div>
 </div>

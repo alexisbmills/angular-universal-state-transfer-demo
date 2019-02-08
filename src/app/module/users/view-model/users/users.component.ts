@@ -22,4 +22,8 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this._users = this.userRepository.users();
   }
+
+  rowClasses(index: number): { [key: string]: boolean } {
+    return { odd: index % 2 === 0 };
+  }
 }

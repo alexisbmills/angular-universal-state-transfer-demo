@@ -11,8 +11,8 @@ import { ServerConfigService } from './module/core/service/server-config.service
   imports: [
     AppModule,
     ServerModule,
-    ServerTransferStateModule,
-    ModuleMapLoaderModule
+    ModuleMapLoaderModule,
+    ServerTransferStateModule
   ],
   providers: [
     // Add universal-only providers here

@@ -1,24 +1,37 @@
 import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, Inject, NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './module/core/core.module';
-
+import { HttpClientModule } from '@angular/common/http';
+import { CONFIG_SERVICE, ConfigAccess } from './module/core/service/config-access';
+import { BrowserConfigService } from './module/core/service/browser-config.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
-    AppRoutingModule,
-    BrowserModule.withServerTransition({ appId: 'my-app' }),
-    BrowserTransferStateModule,
-    HttpClientModule,
     CoreModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserTransferStateModule,
   ],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: CONFIG_SERVICE, useClass: BrowserConfigService },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (configService: ConfigAccess) => () => configService.init(),
+      deps: [
+        [new Inject(CONFIG_SERVICE)]
+      ],
+      multi: true,
+    }
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
-export class AppModule {
-}
+export class AppModule { }

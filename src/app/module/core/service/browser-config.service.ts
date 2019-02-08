@@ -8,10 +8,15 @@ export class BrowserConfigService implements ConfigAccess {
   private _apiUrl = '';
 
   constructor(private transferState: TransferState) {
-    this._apiUrl = this.transferState.get<string>(API_URL_STATE_KEY, '');
   }
 
   get apiUrl(): string {
     return this._apiUrl;
+  }
+
+  init(): Promise<string> {
+    this._apiUrl = this.transferState.get<string>(API_URL_STATE_KEY, '');
+    console.log(`getting API URL ${this._apiUrl}`);
+    return Promise.resolve(this._apiUrl);
   }
 }
