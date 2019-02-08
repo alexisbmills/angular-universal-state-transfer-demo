@@ -3,6 +3,7 @@ import { makeStateKey } from '@angular/platform-browser';
 
 export interface ConfigAccess {
   apiUrl: string;
+  init(): Promise<string>;
 }
 
 export const CONFIG_SERVICE = new InjectionToken<ConfigAccess>('ConfigService');

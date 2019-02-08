@@ -1,0 +1,13 @@
+@import '../../../../../theme/variables';
+
+.list {
+  border-top: 1px solid $black;
+}
+
+.user {
+  padding: 7px 0;
+
+  &.odd {
+    background-color: $whitesmoke;
+  }
+}

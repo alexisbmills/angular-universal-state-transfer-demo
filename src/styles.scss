@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'theme/variables';
+
+body {
+  font-family: Arial, Verdana, sans-serif;
+  color: $black;
+}
+
+a {
+  color: $teal;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $powder;
+}

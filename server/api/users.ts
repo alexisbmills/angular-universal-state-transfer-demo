@@ -42,7 +42,7 @@ const USERS_FIXTURES: User[] = [
 
 export function users(req: Request, res: Response) {
   setTimeout(() => {
-    console.log('user endpoint reached');
+    console.log('users endpoint reached');
     if (req.xhr) {
       console.log('req was xhr');
     }

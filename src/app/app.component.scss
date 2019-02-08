@@ -1,0 +1,27 @@
+@import '../theme/variables';
+
+header {
+  padding: 10px 10px;
+}
+
+nav {
+  padding: 10px 0;
+
+  a {
+    display: inline-block;
+    padding: 3px 5px;
+    background-color: $tangerine;
+    color: $white;
+    text-decoration: none;
+    margin-right: 7px;
+  }
+
+  a:last-of-type {
+    margin-right: 0;
+  }
+
+  a:hover {
+    background-color: $tan;
+    color: $white;
+  }
+}
