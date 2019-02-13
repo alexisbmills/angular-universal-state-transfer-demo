@@ -1,18 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../../services/user';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
 
-  private _user: BehaviorSubject<User>;
-  get user(): Observable<User> {
+  private _user: User;
+  get user(): User {
     return this._user;
   }
 
@@ -20,6 +18,6 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._user = new BehaviorSubject<User>(this.route.snapshot.data['user']);
+    this._user = this.route.snapshot.data['user'];
   }
 }

@@ -8,6 +8,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { CONFIG_SERVICE, ConfigAccess } from './module/core/service/config-access';
 import { BrowserConfigService } from './module/core/service/browser-config.service';
 
+export function configFactory(configService: ConfigAccess) {
+  return () => configService.init();
+}
+
+
 @NgModule({
   declarations: [
     AppComponent
@@ -23,7 +28,7 @@ import { BrowserConfigService } from './module/core/service/browser-config.servi
     { provide: CONFIG_SERVICE, useClass: BrowserConfigService },
     {
       provide: APP_INITIALIZER,
-      useFactory: (configService: ConfigAccess) => () => configService.init(),
+      useFactory: configFactory,
       deps: [
         [new Inject(CONFIG_SERVICE)]
       ],

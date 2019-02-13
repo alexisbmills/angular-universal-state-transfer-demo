@@ -1,6 +1,10 @@
 <p><a [routerLink]="['/']">Back</a></p>
 <hr>
-<div *ngIf="user | async as userDetails">
-  <p>Name: {{userDetails.firstName}} {{userDetails.lastName}}</p>
-  <p>Email: {{userDetails.email}}</p>
+<div>
+  <p>Name: {{user.firstName}} {{user.lastName}}</p>
+  <p>Email: {{user.email}}</p>
+  <img
+      [src]="user.image.url"
+      class="photo"
+      alt="{{user.firstName}} {{user.lastName}}"/>
 </div>
