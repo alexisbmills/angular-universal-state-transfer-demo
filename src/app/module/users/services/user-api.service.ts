@@ -4,25 +4,31 @@ import { Observable } from 'rxjs';
 import { User } from './user';
 import { UserAccess } from './user-access';
 import { CONFIG_SERVICE, ConfigAccess } from '../../core/service/config-access';
+import { filter, switchMap, take, tap } from 'rxjs/operators';
 
 @Injectable()
 export class UserApiService implements UserAccess {
 
-  private apiUrl: string;
-
   constructor(private http: HttpClient,
               @Inject(PLATFORM_ID) private platformId,
               @Inject(CONFIG_SERVICE) private config: ConfigAccess) {
-    this.apiUrl = this.config.apiUrl;
   }
 
   users(): Observable<User[]> {
-    console.log(`fetching users ${this.apiUrl}/users`);
-    return this.http.get<User[]>(`${this.apiUrl}/users`);
+    return this.config.apiUrl.pipe(
+      filter((apiUrl: string) => !!apiUrl),
+      tap((apiUrl: string) => console.log(`fetching users ${apiUrl}/users`)),
+      switchMap((apiUrl: string) => this.http.get<User[]>(`${apiUrl}/users`)),
+      take(1)
+    );
   }
 
   user(id: string): Observable<User> {
-    console.log(`fetching user ${this.apiUrl}/users/${id}`);
-    return this.http.get<User>(`${this.apiUrl}/users/${id}`);
+    return this.config.apiUrl.pipe(
+      filter((apiUrl: string) => !!apiUrl),
+      tap((apiUrl: string) => console.log(`fetching user ${apiUrl}/users/${id}`)),
+      switchMap((apiUrl: string) => this.http.get<User>(`${apiUrl}/users/${id}`)),
+      take(1)
+    );
   }
 }

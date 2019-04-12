@@ -1,5 +1,6 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AsyncDependencyGuard } from './guard/async-dependency.guard';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [
+        AsyncDependencyGuard
       ]
     };
   }
