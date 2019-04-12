@@ -7,11 +7,20 @@ import { CoreModule } from './module/core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CONFIG_SERVICE, ConfigAccess } from './module/core/service/config-access';
 import { BrowserConfigService } from './module/core/service/browser-config.service';
+import { environment } from '../environments/environment';
+import { UserApiMockModule } from './module/user-api-mock/user-api-mock.module';
 
 export function configFactory(configService: ConfigAccess) {
   return () => configService.init();
 }
 
+const mockImports = [];
+if (!environment.production) {
+  console.log('Non-production environment - mocking User API');
+  mockImports.push(
+    UserApiMockModule.forRoot()
+  )
+}
 
 @NgModule({
   declarations: [
@@ -23,6 +32,7 @@ export function configFactory(configService: ConfigAccess) {
     HttpClientModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,
+    ...mockImports
   ],
   providers: [
     { provide: CONFIG_SERVICE, useClass: BrowserConfigService },
