@@ -1,8 +1,9 @@
 import { InjectionToken } from '@angular/core';
 import { makeStateKey } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 
 export interface ConfigAccess {
-  apiUrl: string;
+  apiUrl: Observable<string>;
   init(): Promise<string>;
 }
 
