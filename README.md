@@ -1,5 +1,5 @@
 # Angular Universal State Transfer
-A demo of server to browser state transfer (hydration), using Angular 7.
+A demo of server to browser state transfer (hydration), using Angular 8.
 
 ```
 $ yarn install
