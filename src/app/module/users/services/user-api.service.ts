@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from './user';
 import { UserAccess } from './user-access';
 import { CONFIG_SERVICE, ConfigAccess } from '../../core/service/config-access';
-import { filter, switchMap, take, tap } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
 
 @Injectable()
 export class UserApiService implements UserAccess {
@@ -16,7 +16,6 @@ export class UserApiService implements UserAccess {
 
   users(): Observable<User[]> {
     return this.config.apiUrl.pipe(
-      filter((apiUrl: string) => !!apiUrl),
       tap((apiUrl: string) => console.log(`fetching users ${apiUrl}/users`)),
       switchMap((apiUrl: string) => this.http.get<User[]>(`${apiUrl}/users`)),
       take(1)
@@ -25,7 +24,6 @@ export class UserApiService implements UserAccess {
 
   user(id: string): Observable<User> {
     return this.config.apiUrl.pipe(
-      filter((apiUrl: string) => !!apiUrl),
       tap((apiUrl: string) => console.log(`fetching user ${apiUrl}/users/${id}`)),
       switchMap((apiUrl: string) => this.http.get<User>(`${apiUrl}/users/${id}`)),
       take(1)

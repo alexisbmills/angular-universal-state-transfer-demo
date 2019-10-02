@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { API_URL_STATE_KEY, ConfigAccess } from './config-access';
 import { TransferState } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface BrowserConfig {
@@ -18,7 +18,11 @@ export class BrowserConfigService implements ConfigAccess {
   }
 
   get apiUrl(): Observable<string> {
-    return this._apiUrl.asObservable();
+    return this._apiUrl
+      .asObservable()
+      .pipe(
+        filter((apiUrl: string) => !!apiUrl),
+      );
   }
 
   init(): Promise<string> {
