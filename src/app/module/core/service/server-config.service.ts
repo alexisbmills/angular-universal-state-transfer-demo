@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { API_URL_STATE_KEY, ConfigAccess } from './config-access';
 import { TransferState } from '@angular/platform-browser';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class ServerConfigService implements ConfigAccess {
@@ -12,7 +13,11 @@ export class ServerConfigService implements ConfigAccess {
   }
 
   get apiUrl(): Observable<string> {
-    return this._apiUrl.asObservable();
+    return this._apiUrl
+      .asObservable()
+      .pipe(
+        filter((apiUrl: string) => !!apiUrl),
+      );
   }
 
   init(): Promise<string> {

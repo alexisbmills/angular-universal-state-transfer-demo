@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Route, UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CONFIG_SERVICE, ConfigAccess } from '../service/config-access';
-import { filter, map, take, tap } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 
 @Injectable()
 export class AsyncDependencyGuard implements CanActivate, CanLoad {
@@ -15,7 +15,6 @@ export class AsyncDependencyGuard implements CanActivate, CanLoad {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.config.apiUrl.pipe(
-      filter((apiUrl: string) => !!apiUrl),
       map((apiUrl: string) => !!apiUrl),
       tap(() => console.log(`AsyncDependencyGuard --> canActivate ${next.url.join('/')}?`)),
     );
@@ -23,7 +22,6 @@ export class AsyncDependencyGuard implements CanActivate, CanLoad {
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
     return this.config.apiUrl.pipe(
-      filter((apiUrl: string) => !!apiUrl),
       map((apiUrl: string) => !!apiUrl),
       tap(() => console.log(`AsyncDependencyGuard --> canLoad ${route.path}`)),
       take(1)

@@ -3,10 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { AsyncDependencyGuard } from './module/core/guard/async-dependency.guard';
 
 const routes: Routes = [
-  { path: 'messages', loadChildren: './module/messages/messages.module#MessagesModule' },
+  {
+    path: 'messages',
+    loadChildren: () => import('./module/messages/messages.module').then(m => m.MessagesModule),
+
+  },
   {
     path: '',
-    loadChildren: './module/users/users.module#UsersModule',
+    loadChildren: () => import('./module/users/users.module').then(m => m.UsersModule),
     canLoad: [AsyncDependencyGuard]
   },
 ];
