@@ -16,7 +16,7 @@ import { ServerConfigService } from './module/core/service/server-config.service
   ],
   providers: [
     // Add universal-only providers here
-    { provide: CONFIG_SERVICE, useClass: ServerConfigService }
+    { provide: CONFIG_SERVICE, useClass: ServerConfigService },
   ],
   bootstrap: [ AppComponent ],
 })

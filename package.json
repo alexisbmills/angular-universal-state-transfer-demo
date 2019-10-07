@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:es5": "ng serve --configuration es5",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -27,10 +28,13 @@
     "@angular/router": "^8.2.8",
     "@nguniversal/express-engine": "^8.1.1",
     "@nguniversal/module-map-ngfactory-loader": "^8.1.1",
+    "classlist.js": "^1.1.20150312",
     "core-js": "^3.2.1",
     "express": "^4.17.1",
     "rxjs": "^6.5.3",
     "ts-loader": "^6.1.0",
+    "web-animations-js": "^2.3.2",
+    "webp-hero": "^0.0.0-dev.24",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9",
     "zone.js": "^0.9.1"

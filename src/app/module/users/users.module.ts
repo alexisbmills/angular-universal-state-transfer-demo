@@ -6,11 +6,13 @@ import { UserComponent } from './view-model/user/user.component';
 import { UserApiService } from './services/user-api.service';
 import { UserResolver } from './services/user.resolver';
 import { UserRepositoryService } from './services/user-repository.service';
+import { WebpPolyfillModule } from '../shared/webp-polyfill/webp-polyfill.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    WebpPolyfillModule
   ],
   declarations: [
     UsersComponent,
@@ -19,7 +21,7 @@ import { UserRepositoryService } from './services/user-repository.service';
   providers: [
     UserApiService,
     UserRepositoryService,
-    UserResolver
+    UserResolver,
   ],
 })
 export class UsersModule {
