@@ -1,33 +1,63 @@
-import { Injectable } from '@angular/core';
-import { LoadingError } from '../../../users/view-model/user/user.component';
-import { WebpMachine } from 'webp-hero';
-import { Observable } from 'rxjs';
-import { WebpAccess } from './webp-access';
+import { Inject, Injectable } from '@angular/core';
+import {
+  WEBP_POLYFILL_EXTERNAL,
+  WEBP_POLYFILL_OPTIONS,
+  WebpAccess,
+  WebpExternalAccess,
+  WebpPolyfillOptions
+} from './webp-access';
+import PQueue from 'p-queue';
+import { Observable, of, ReplaySubject } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
+import { fromPromise } from 'rxjs/internal-compatibility';
+
+export class LoadingError extends Error {
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebpMachineService implements WebpAccess {
 
-  constructor(private webpPolyFill: WebpMachine) { }
+  private hasWebpSupport = new ReplaySubject<boolean>();
 
-  decode(url: string): Promise<string> {
+  private processingQueue = new PQueue({ concurrency: 1 });
 
-    return this.loadBinaryData(url)
-      .then((data: Uint8Array) => this.webpPolyFill.decode(data))
+  constructor(@Inject(WEBP_POLYFILL_OPTIONS) private options: WebpPolyfillOptions,
+              @Inject(WEBP_POLYFILL_EXTERNAL) private webpPolyFill: WebpExternalAccess) {
+  }
+
+  init(): void {
+    this.detectWebpSupport()
+      .then((isSupported: boolean) => this.hasWebpSupport.next(isSupported));
+  }
+
+  decode(url: string): Observable<string> {
+    return this.hasWebpSupport.pipe(
+      switchMap((canApplyPolyfill: boolean) => {
+        if (!canApplyPolyfill || !this.options.shouldApplyPolyfill()) {
+          return of(url)
+            .pipe(take(1));
+        }
+        return fromPromise(this.processingQueue.add(() => {
+          return this.loadBinaryData(url)
+            .then((data: Uint8Array) => this.webpPolyFill.decode(data));
+        }))
+      }),
+      take(1)
+    );
   }
 
   private detectWebpSupport(): Promise<boolean> {
-
     const testImageSources = [
       "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACyAgCdASoCAAEALmk0mk0iIiIiIgBoSygABc6zbAAA/v56QAAAAA==",
       "data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAQAAAAfQ//73v/+BiOh/AAA="
     ];
 
     const testImage = (src: string): Promise<boolean> => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const img = document.createElement("img");
-        img.onerror = error => resolve(false);
+        img.onerror = () => resolve(false);
         img.onload = () => resolve(true);
         img.src = src;
       });
@@ -57,14 +87,14 @@ export class WebpMachineService implements WebpAccess {
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-            resolve(new Uint8Array(xhr.response))
+            resolve(new Uint8Array(xhr.response));
           } else {
-            handleError()
+            handleError();
           }
         }
       };
 
-      xhr.send()
+      xhr.send();
     })
   }
 }

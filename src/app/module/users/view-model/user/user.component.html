@@ -3,16 +3,18 @@
 <div>
   <p>Name: {{user.firstName}} {{user.lastName}}</p>
   <p>Email: {{user.email}}</p>
-  <img #profileImage
+  <p>
+    <img
       [src]="user.image.url"
       class="photo"
       alt="{{user.firstName}} {{user.lastName}}"/>
+  </p>
 
+  <h4>Webp Image Polyfill as PNG</h4>
+  <h5>Background image</h5>
   <div [appWebpBackground]="user.image.url" class="photo"></div>
 
-<!--  Issue: multiple concurrent decodes results in error
-      Solution: apply directive at a more parent level to iterate over elements with appWebpBackground/appWebpImage attributes -->
-<!--  <div [appWebpImage]="user.image.url" class="photo"></div>-->
-
+  <h5>Image element</h5>
+  <img [appWebpImage]="user.image.url" class="photo" [src]="user.image.url" alt="{{user.firstName}} {{user.lastName}}"/>
 
 </div>

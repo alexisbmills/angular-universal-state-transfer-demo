@@ -12,7 +12,7 @@ import { WebpPolyfillModule } from '../shared/webp-polyfill/webp-polyfill.module
   imports: [
     CommonModule,
     UsersRoutingModule,
-    WebpPolyfillModule
+    WebpPolyfillModule.forChild()
   ],
   declarations: [
     UsersComponent,

@@ -5,6 +5,8 @@ import {
   Inject, Input, Renderer2,
 } from '@angular/core';
 import { WEBP_POLYFILL, WebpAccess } from '../service/webp-access';
+import { catchError, tap } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 
 @Directive({
   selector: '[appWebpBackground]'
@@ -26,10 +28,16 @@ export class WebpBackgroundDirective implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.webpPolyFill.decode(this._appWebpBackground)
-      .then((dataString: string) => {
-        this.renderer.setStyle(this.elementRef.nativeElement, 'background-image', `url(${dataString})`);
-        this.changeDetectorRef.detectChanges();
-      })
-      .catch((err: any) => console.error(err));
+      .pipe(
+        tap((dataString: string) => {
+          this.renderer.setStyle(this.elementRef.nativeElement, 'background-image', `url(${dataString})`);
+          this.changeDetectorRef.detectChanges();
+        }),
+        catchError((err: any) => {
+          console.error(err);
+          return EMPTY;
+        })
+      )
+      .subscribe();
   }
 }
