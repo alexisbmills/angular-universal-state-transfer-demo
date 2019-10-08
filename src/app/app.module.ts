@@ -9,6 +9,7 @@ import { CONFIG_SERVICE, ConfigAccess } from './module/core/service/config-acces
 import { BrowserConfigService } from './module/core/service/browser-config.service';
 import { environment } from '../environments/environment';
 import { UserApiMockModule } from './module/user-api-mock/user-api-mock.module';
+import { WebpPolyfillModule } from './module/shared/webp-polyfill/webp-polyfill.module';
 
 export function configFactory(configService: ConfigAccess) {
   return () => configService.init();
@@ -32,6 +33,7 @@ if (!environment.production) {
     HttpClientModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,
+    WebpPolyfillModule.forRoot(),
     ...mockImports
   ],
   providers: [

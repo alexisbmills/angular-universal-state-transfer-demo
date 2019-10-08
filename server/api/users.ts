@@ -10,7 +10,7 @@ const USERS_FIXTURES: User[] = [
     image: {
       width: 200,
       height: 300,
-      url: 'https://picsum.photos/200/300?image=0'
+      url: 'https://picsum.photos/id/0/200/300.webp'
     }
   },
   {
@@ -21,7 +21,7 @@ const USERS_FIXTURES: User[] = [
     image: {
       width: 200,
       height: 300,
-      url: 'https://picsum.photos/200/300?image=1'
+      url: 'https://picsum.photos/id/1/200/300.webp'
     }
   },
   {
@@ -32,7 +32,7 @@ const USERS_FIXTURES: User[] = [
     image: {
       width: 200,
       height: 300,
-      url: 'https://picsum.photos/200/300?image=2'
+      url: 'https://picsum.photos/id/2/200/300.webp'
     }
   },
   {
@@ -43,7 +43,7 @@ const USERS_FIXTURES: User[] = [
     image: {
       width: 200,
       height: 300,
-      url: 'https://picsum.photos/200/300?image=3'
+      url: 'https://picsum.photos/id/3/200/300.webp'
     }
   },
   {
@@ -54,7 +54,7 @@ const USERS_FIXTURES: User[] = [
     image: {
       width: 200,
       height: 300,
-      url: 'https://picsum.photos/200/300?image=4'
+      url: 'https://picsum.photos/id/4/200/300.webp'
     }
   },
   {
@@ -65,7 +65,7 @@ const USERS_FIXTURES: User[] = [
     image: {
       width: 200,
       height: 300,
-      url: 'https://picsum.photos/200/300?image=5'
+      url: 'https://picsum.photos/id/5/200/300.webp'
     }
   }
 ];
