@@ -11,7 +11,7 @@ import { AsyncDependencyGuard } from './guard/async-dependency.guard';
 })
 export class CoreModule {
 
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<CoreModule> {
     return {
       ngModule: CoreModule,
       providers: [
