@@ -18,7 +18,7 @@ const providers: Provider[] = [
   ]
 })
 export class UserApiMockModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<UserApiMockModule> {
     return {
       ngModule: UserApiMockModule,
       providers
